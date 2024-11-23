@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Upcoming Movie Release</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .countdown-container {
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 30px 50px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: #FF4500;
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease-in-out;
+        }
+        .release-date {
+            font-size: 1.5rem;
+            color: #FFD700;
+            margin-bottom: 30px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        .countdown {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #FFD700;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            animation: fadeIn 2s ease-in-out;
+        }
+        .time-unit {
+            padding: 20px;
+            background-color: #333;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            animation: bounce 1s ease-in-out infinite;
+        }
+        .time-unit span {
+            display: block;
+            font-size: 2rem;
+        }
+        .label {
+            font-size: 1.2rem;
+            color: #bbb;
+        }
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        @keyframes bounce {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="countdown-container">
+    <h1>Movie Release Countdown</h1>
+    <p class="release-date">
+        <strong>Release Date & Time:</strong> 26th December 2024, 10:10 AM
+    </p>
+    <div class="countdown">
+        <div class="time-unit">
+            <span id="days"></span>
+            <div class="label">Days</div>
+        </div>
+        <div class="time-unit">
+            <span id="hours"></span>
+            <div class="label">Hours</div>
+        </div>
+        <div class="time-unit">
+            <span id="minutes"></span>
+            <div class="label">Minutes</div>
+        </div>
+        <div class="time-unit">
+            <span id="seconds"></span>
+            <div class="label">Seconds</div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Set the release date and time
+const releaseDate = new Date('2024-12-26T10:10:00');
+
+// Update the countdown every 1 second
+function updateCountdown() {
+    const now = new Date();
+    const timeDiff = releaseDate - now;
+
+    if (timeDiff <= 0) {
+        document.querySelector('.countdown-container').innerHTML = "<h1>Movie Released!</h1><p>The movie is now available to watch.</p>";
+        clearInterval(countdownInterval);
+    } else {
+        const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+        document.getElementById('days').innerText = days;
+        document.getElementById('hours').innerText = hours;
+        document.getElementById('minutes').innerText = minutes;
+        document.getElementById('seconds').innerText = seconds;
+    }
+}
+
+// Update the countdown every second
+const countdownInterval = setInterval(updateCountdown, 1000);
+</script>
+
+</body>
+</html>
